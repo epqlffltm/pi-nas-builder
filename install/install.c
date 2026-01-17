@@ -7,7 +7,9 @@
 
 int main(void) 
 {
+  printf("NAS 저장소 구성을 시작합니다...\n");
     // 1. 권한 확인
+    printf("루트 권한을 확인합니다...\n");
     if (geteuid() != 0) 
     {
         printf("이 프로그램은 sudo 권한으로 실행해야 합니다.\n");
@@ -15,6 +17,7 @@ int main(void)
     }
 
     // 2. 실제 사용자 이름 가져오기
+    printf("실제 사용자 이름을 확인합니다...\n");
     const char *username = getenv("SUDO_USER");
     if (username == NULL) 
     {
@@ -23,6 +26,7 @@ int main(void)
     }
 
     // 3. Samba 비밀번호 입력
+    printf("Samba 사용자 비밀번호를 설정합니다...\n");
     char password[128];
     printf("사용자 [%s]의 Samba 접속 비밀번호를 설정하세요: ", username);
     if (scanf("%127s", password) != 1) 
@@ -38,6 +42,8 @@ int main(void)
     // 활성화된 모든 md 장치 중지
     system("mdadm --stop /dev/md* 2>/dev/null"); 
 
+    // 각 디스크 초기화
+    printf("디스크 초기화 중...\n");
     const char *disks[] = {"/dev/sda", "/dev/sdb", "/dev/sdc", "/dev/sdd"};
     for (int i = 0; i < 4; i++) 
     {
@@ -45,10 +51,12 @@ int main(void)
         printf("[%s] 초기화 중...\n", disks[i]);
         
         // RAID 메타데이터(Superblock) 강제 제거
+        printf("[%s] RAID 메타데이터 제거 중...\n", disks[i]);
         sprintf(cmd, "mdadm --zero-superblock %s 2>/dev/null", disks[i]);
         system(cmd);
         
         // 파일시스템 지문 및 파티션 테이블 제거
+        printf("[%s] 파일시스템 및 파티션 테이블 제거 중...\n", disks[i]);
         sprintf(cmd, "wipefs -a %s && sgdisk --zap-all %s", disks[i], disks[i]);
         system(cmd);
     }
@@ -65,6 +73,7 @@ int main(void)
     check_exit(system("mount /dev/md0 /storage"), "마운트 실패");
 
     // 7. 공유 폴더 생성 및 권한 설정
+    printf("공유 폴더를 생성하고 권한을 설정합니다...\n");
     system("mkdir -p /storage/share");
     char chown_cmd[256];
     sprintf(chown_cmd, "chown -R %s:%s /storage/share", username, username);
@@ -76,6 +85,7 @@ int main(void)
     sprintf(smb_user_cmd, "(echo \"%s\"; echo \"%s\") | smbpasswd -s -a %s", password, password, username);
     system(smb_user_cmd);
 
+    printf("Samba 설정 파일을 업데이트합니다...\n");
     FILE *fp = fopen("/etc/samba/smb.conf", "a");
     if (fp != NULL) {
         fprintf(fp, "\n[NAS_Storage]\n");
