@@ -10,3 +10,9 @@ core
 
 # OS 생성 파일
 .DS_Store
+
+# VS Code 설정 폴더 제외
+.vscode/
+
+# 쉘 스크립트 파일 제외
+*.sh
