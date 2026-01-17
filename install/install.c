@@ -92,6 +92,17 @@ int main(void)
     system("mdadm --detail --scan | tee -a /etc/mdadm/mdadm.conf");
     system("echo '/dev/md0  /storage  ext4  defaults,noatime  0  2' >> /etc/fstab");
 
+    // 10. 바탕화면 바로가기 생성 (Desktop 전용)
+    printf("Creating shortcut on Desktop...\n");
+    char desktop_link[512];
+    sprintf(desktop_link, "ln -sf /storage/share /home/%s/Desktop/NAS_Storage", username);
+    system(desktop_link);
+
+    // 바로가기 파일 소유권 변경
+    char chown_link[512];
+    sprintf(chown_link, "chown -h %s:%s /home/%s/Desktop/NAS_Storage", username, username, username);
+    system(chown_link);
+
     // 10. 서비스 재시작
     check_exit(system("systemctl restart smbd"), "Samba 재시작 실패");
 
