@@ -33,6 +33,7 @@ int main(void)
     // 3. 패키지 업데이트 및 펌웨어
     printf("업데이트를 실행합니다...\n");
     check_exit(system("apt update"), "패키지 업데이트 실패");
+    check_exit(system("PIP_BREAK_SYSTEM_PACKAGES=1 apt upgrade -y"), "패키지 업그레이드 실패");
     
     printf("업그레이드를 실행합니다...\n");
     check_exit(system("apt upgrade -y"), "패키지 업그레이드 실패");
