@@ -1,7 +1,11 @@
 # 실행 파일 (컴파일 결과물)
+# Makefile에서 설정한 TARGET 이름들을 추가합니다.
+setup_app
+install_app
 setup
+install
 
-# 오브젝트 파일
+# 오브젝트 파일 (컴파일 과정 중 생성되는 임시 파일)
 *.o
 
 # 코어 덤프 및 로그
@@ -10,9 +14,15 @@ core
 
 # OS 생성 파일
 .DS_Store
+Thumbs.db
 
-# VS Code 설정 폴더 제외
+# VS Code 설정 폴더
+# 팀 프로젝트라면 공유하기도 하지만, 개인 설정이 많으므로 제외하는 편입니다.
 .vscode/
 
 # 쉘 스크립트 파일 제외
 *.sh
+
+# 백업 파일 및 임시 파일
+*.bak
+*.swp
