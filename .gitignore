@@ -2,8 +2,6 @@
 # Makefile에서 설정한 TARGET 이름들을 추가합니다.
 setup_app
 install_app
-setup
-install
 
 # 오브젝트 파일 (컴파일 과정 중 생성되는 임시 파일)
 *.o
