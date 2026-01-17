@@ -32,10 +32,10 @@ int main(void)
 
     // 3. 패키지 업데이트 및 펌웨어
     printf("업데이트를 실행합니다...\n");
-    check_exit(system("apt update"), "패키지 업데이트 실패");
+    check_exit(system("sudo apt update"), "패키지 업데이트 실패");
     
     printf("업그레이드를 실행합니다...\n");
-    check_exit(system("apt upgrade -y"), "패키지 업그레이드 실패");
+    check_exit(system("sudo apt upgrade -y"), "패키지 업그레이드 실패");
     //check_exit(system("PIP_BREAK_SYSTEM_PACKAGES=1 apt upgrade -y"), "패키지 업그레이드 실패");//에러 문제로 주석처리함.
 
     
@@ -106,8 +106,7 @@ int main(void)
     printf("시스템 한글화를 진행합니다...\n");
     check_exit(system("apt install ibus ibus-hangul -y"), "한글 입력기 설치 실패");
     check_exit(system("apt install -y fonts-nanum fonts-unfonts-core"), "한글 폰트 설치 실패");
-    check_exit(system("locale-gen ko_KR.UTF-8"), "로케일 생성 실패");
-    check_exit(system("update-locale LANG=ko_KR.UTF-8"), "로케일 업데이트 실패");
+    check_exit(system("sed -i 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen && locale-gen"), "로케일 생성 실패");
     printf("시간대를 Asia/Seoul로 설정합니다...\n");
     check_exit(system("timedatectl set-timezone Asia/Seoul"), "시간대 설정 실패");
 
