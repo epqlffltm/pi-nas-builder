@@ -84,8 +84,8 @@ int main(void)
     check_exit(system("apt install -y samba samba-common-bin"), "Samba 설치 실패");
 
     //8. 방화벽 설정
+    /*
     printf("방화벽을 설정합니다...\n");
-    printf("ZFS 및 방화벽 도구를 설치합니다...\n");
     check_exit(system("apt install -y ufw"), "패키지 설치 실패");
     check_exit(system("ufw allow ssh"), "방화벽 ssh 설정 실패");
     check_exit(system("ufw allow 137,138/udp"), "방화벽 Samba UDP 설정 실패");
@@ -93,6 +93,7 @@ int main(void)
 
     printf("방화벽을 활성화합니다...\n");
     check_exit(system("ufw --force enable"), "방화벽 활성화 실패");
+    */
     /*패키지 꼬임 문제 발생. 쓰지 말 것!
     //9. radxa Penta SATA Hat 드라이버 설치
     printf("Radxa Penta SATA Hat 드라이버를 설치합니다...\n");
