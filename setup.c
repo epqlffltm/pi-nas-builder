@@ -97,7 +97,16 @@ int main(void)
     check_exit(system("apt install -i rockpi-penta-0.2.2.deb"), "드라이버 설치 실패");
     check_exit(system("rm rockpi-penta-0.2.2.deb"), "드라이버 설치 파일 삭제 실패");
 
-    // 10. 완료 및 재부팅
+    // 10. 한글화
+    printf("시스템 한글화를 진행합니다...\n");
+    check_exit(system("apt install ibus ibus-hangul -y"), "한글 입력기 설치 실패");
+    check_exit(system("apt install -y fonts-nanum fonts-unfonts-core"), "한글 폰트 설치 실패");
+    check_exit(system("locale-gen ko_KR.UTF-8"), "로케일 생성 실패");
+    check_exit(system("update-locale LANG=ko_KR.UTF-8"), "로케일 업데이트 실패");
+    printf("시간대를 Asia/Seoul로 설정합니다...\n");
+    check_exit(system("timedatectl set-timezone Asia/Seoul"), "시간대 설정 실패");
+
+    // 11. 완료 및 재부팅
     printf("설치가 성공적으로 완료되었습니다! 시스템을 재부팅하겠습니다...\n");
     sync();
     sleep(2); // 메시지를 읽을 시간 확보
