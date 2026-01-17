@@ -19,6 +19,7 @@ int main(void)
     }
 
     // 2. 메모리 크기 확인
+    /* zfs 사용하지 않아서 필요 없어짐.
     printf("시스템의 총 메모리 크기를 확인합니다...\n");
     long mem_kb = get_total_memory_size_kb();
     
@@ -28,9 +29,9 @@ int main(void)
         printf("현재 메모리 크기: %ld KB\n", mem_kb);
         exit(EXIT_FAILURE);
     }
-    printf("시스템의 총 메모리 크기가 충분합니다: %ld KB\n", mem_kb);
+    printf("시스템의 총 메모리 크기가 충분합니다: %ld KB\n", mem_kb);*/
 
-    // 3. 패키지 업데이트 및 펌웨어
+    // 2. 패키지 업데이트 및 펌웨어
     printf("업데이트를 실행합니다...\n");
     check_exit(system("sudo apt update"), "패키지 업데이트 실패");
     
@@ -45,6 +46,12 @@ int main(void)
     printf("커널 헤더를 설치하겠습니다...\n");
 
     check_exit(system("apt install -y linux-headers-$(uname -r)"), "커널 헤더 설치 실패");
+
+    // 3. 네트워크 부팅 지연 방지 (추가 추천!)
+    // 네트워크가 연결될 때까지 부팅을 멈추는 서비스를 꺼서 '검은 화면' 대기를 방지합니다.
+    printf("부팅 속도 최적화를 진행합니다...\n");
+    system("systemctl disable systemd-networkd-wait-online.service");
+    system("systemctl mask Raspberry-Pi-Custom-Network-State-Checker.service");
 
     // 4. PCIe 설정
     printf("PCIe 설정을 확인합니다...\n");
