@@ -63,7 +63,7 @@ int main(void)
     system(chown_cmd);
 
     // 8. Samba 사용자 등록 및 설정
-    char smb_user_cmd[256];
+    char smb_user_cmd[512];
     sprintf(smb_user_cmd, "(echo \"%s\"; echo \"%s\") | smbpasswd -s -a %s", password, password, username);
     system(smb_user_cmd);
 
