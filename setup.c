@@ -84,7 +84,7 @@ int main(void)
     //8. 방화벽 설정
     printf("방화벽을 설정합니다...\n");
     printf("ZFS 및 방화벽 도구를 설치합니다...\n");
-    check_exit(system("apt install -y zfs-dkms zfsutils-linux ufw"), "패키지 설치 실패");
+    check_exit(system("apt install -y ufw"), "패키지 설치 실패");
     check_exit(system("ufw allow ssh"), "방화벽 ssh 설정 실패");
     check_exit(system("ufw allow 137,138/udp"), "방화벽 Samba UDP 설정 실패");
     check_exit(system("ufw allow 139,445/tcp"), "방화벽 Samba TCP 설정 실패");
@@ -96,7 +96,7 @@ int main(void)
     printf("Radxa Penta SATA Hat 드라이버를 설치합니다...\n");
     check_exit(system("apt install -y wget"), "wget 설치 실패");
     check_exit(system("wget -N https://github.com/radxa/rockpi-penta/releases/download/v0.2.2/rockpi-penta-0.2.2.deb"), "드라이버 다운로드 실패");
-    check_exit(system("apt install -i rockpi-penta-0.2.2.deb"), "드라이버 설치 실패");
+    check_exit(system("apt install -y rockpi-penta-0.2.2.deb"), "드라이버 설치 실패");
     check_exit(system("rm rockpi-penta-0.2.2.deb"), "드라이버 설치 파일 삭제 실패");
 
     // 10. 한글화
