@@ -33,10 +33,11 @@ int main(void)
     // 3. 패키지 업데이트 및 펌웨어
     printf("업데이트를 실행합니다...\n");
     check_exit(system("apt update"), "패키지 업데이트 실패");
-    check_exit(system("PIP_BREAK_SYSTEM_PACKAGES=1 apt upgrade -y"), "패키지 업그레이드 실패");
     
     printf("업그레이드를 실행합니다...\n");
     check_exit(system("apt upgrade -y"), "패키지 업그레이드 실패");
+    //check_exit(system("PIP_BREAK_SYSTEM_PACKAGES=1 apt upgrade -y"), "패키지 업그레이드 실패");//에러 문제로 주석처리함.
+
     
     printf("펌웨어 업데이트를 진행합니다...\n");
     check_exit(system("rpi-eeprom-update -a"), "펌웨어 업데이트 실패");
@@ -92,13 +93,14 @@ int main(void)
 
     printf("방화벽을 활성화합니다...\n");
     check_exit(system("ufw --force enable"), "방화벽 활성화 실패");
-
+    /*패키지 꼬임 문제 발생. 쓰지 말 것!
     //9. radxa Penta SATA Hat 드라이버 설치
     printf("Radxa Penta SATA Hat 드라이버를 설치합니다...\n");
     check_exit(system("apt install -y wget"), "wget 설치 실패");
     check_exit(system("wget -N https://github.com/radxa/rockpi-penta/releases/download/v0.2.2/rockpi-penta-0.2.2.deb"), "드라이버 다운로드 실패");
     check_exit(system("PIP_BREAK_SYSTEM_PACKAGES=1 apt install -y ./rockpi-penta-0.2.2.deb"), "드라이버 설치 실패");
     check_exit(system("rm rockpi-penta-0.2.2.deb"), "드라이버 설치 파일 삭제 실패");
+    */
 
     // 10. 한글화
     printf("시스템 한글화를 진행합니다...\n");
