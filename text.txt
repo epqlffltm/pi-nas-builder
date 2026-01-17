@@ -1,5 +1,11 @@
+설치 명령어
+
 git clone https://github.com/epqlffltm/pi-nas-builder.git
 
 cd pi-nas-builder
 
 make
+
+sudo ./setup_app
+
+sudo ./install_app
