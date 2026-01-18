@@ -1,3 +1,8 @@
+#Radxa Penta SATA HAT pi-nas builder
+
+[##Radxa Penta SATA HAT](https://docs.radxa.com/en/accessories/storage/penta-sata-hat)을 사용한 자동화 설정 빌드입니다. 
+
+
 ## 📂 프로젝트 구조
 .
 ├── Makefile           # 전체 빌드 스크립트
