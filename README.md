@@ -18,36 +18,52 @@
 ---
 ### 저장소 복제
 
-```git clone https://github.com/epqlffltm/pi-nas-builder.git```
+```
+git clone https://github.com/epqlffltm/pi-nas-builder.git
+```
 
 ---
 ### 폴더 이동
 
-```cd pi-nas-builder```
+```
+cd pi-nas-builder
+```
 ---
 ### 실행 파일 생성 (setup_app, raid0, raid5 등)
 
-```make```
+```
+make
+```
 ---
 ### 설정 파일 실행
 
-```sudo ./setup_app```
+```
+sudo ./setup_app
+```
 ---
 ### RAID 0 구성을 원하는 경우
 
-```sudo ./raid0```
+```
+sudo ./raid0
+```
 ---
 ### RAID 1 구성을 원하는 경우
 
-```sudo ./raid1```
+```
+sudo ./raid1
+```
 ---
 ### RAID 5 구성을 원하는 경우
 
-```sudo ./raid5```
+```
+sudo ./raid5
+```
 ---
 ### RAID 10 구성을 원하는 경우
 
-```sudo ./raid10```
+```
+sudo ./raid10
+```
 ---
 
 
