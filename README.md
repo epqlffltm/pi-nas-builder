@@ -1,8 +1,8 @@
-#Radxa Penta SATA HAT pi-nas builder
+# Radxa Penta SATA HAT pi-nas builder
+---
+## [Radxa Penta SATA HAT](https://docs.radxa.com/en/accessories/storage/penta-sata-hat)을 사용한 자동화 설정 빌드입니다. 
 
-[##Radxa Penta SATA HAT](https://docs.radxa.com/en/accessories/storage/penta-sata-hat)을 사용한 자동화 설정 빌드입니다. 
-
-
+---
 ## 📂 프로젝트 구조
 .
 ├── Makefile           # 전체 빌드 스크립트
@@ -15,25 +15,40 @@
     ├── nas_lib.c
     └── nas_lib.h
 
+---
+### 저장소 복제
 
-# 저장소 복제
 ```git clone https://github.com/epqlffltm/pi-nas-builder.git```
 
-# 폴더 이동
+---
+### 폴더 이동
+
 ```cd pi-nas-builder```
+---
+### 실행 파일 생성 (setup_app, raid0, raid5 등)
 
-# 실행 파일 생성 (setup_app, raid0, raid5 등)
 ```make```
+---
+### 설정 파일 실행
 
-# 설정 파일 실행
 ```sudo ./setup_app```
+---
+### RAID 0 구성을 원하는 경우
 
-# RAID 5 구성을 원하는 경우
+```sudo ./raid0```
+---
+### RAID 1 구성을 원하는 경우
+
+```sudo ./raid1```
+---
+### RAID 5 구성을 원하는 경우
+
 ```sudo ./raid5```
+---
+### RAID 10 구성을 원하는 경우
 
-# 또는 상황에 따라 선택
-# sudo ./raid0
-# sudo ./raid10
+```sudo ./raid10```
+---
 
 
 명령어,RAID 레벨,특징,추천 용도
