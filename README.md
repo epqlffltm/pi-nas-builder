@@ -1,12 +1,3 @@
-/**
- * @brief  기존 디스크의 모든 레이드 정보와 파티션 테이블을 초기화합니다.
- * @param  disks 초기화할 디스크 경로 배열 (예: /dev/sda)
- * @param  count 초기화할 디스크의 개수
- * @return void
- * @note   이 작업은 데이터를 영구적으로 삭제하므로 주의가 필요합니다.
- */
-void cleanup_disks(const char **disks, int count);
-
 ## 📂 프로젝트 구조
 .
 ├── Makefile           # 전체 빌드 스크립트
@@ -21,18 +12,19 @@ void cleanup_disks(const char **disks, int count);
 
 
 # 저장소 복제
-git clone https://github.com/epqlffltm/pi-nas-builder.git
+```git clone https://github.com/epqlffltm/pi-nas-builder.git```
 
 # 폴더 이동
-cd pi-nas-builder
+```cd pi-nas-builder```
 
 # 실행 파일 생성 (setup_app, raid0, raid5 등)
-make
+```make```
 
-sudo ./setup_app
+# 설정 파일 실행
+```sudo ./setup_app```
 
 # RAID 5 구성을 원하는 경우
-sudo ./raid5
+```sudo ./raid5```
 
 # 또는 상황에 따라 선택
 # sudo ./raid0
