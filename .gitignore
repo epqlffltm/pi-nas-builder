@@ -25,4 +25,7 @@ Thumbs.db
 *.bak
 *.swp
 
-.txt
+# 기존 파일 제외
+install/install.c
+lib/utils.c
+lib/utils.h
