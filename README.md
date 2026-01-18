@@ -97,6 +97,8 @@ sudo ./raid10
 ---
 ### 개발환경
 C 컴파일러: gcc (WSL/리눅스 환경 기준)
+VScode(windows 11)
+vim, nano (linux)
 
 ---
 ### QnA
