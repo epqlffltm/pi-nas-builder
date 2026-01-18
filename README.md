@@ -89,7 +89,12 @@ sudo ./raid10
 | RAID 10 | 최고 성능 + 최고의 안정성 | 중요 데이터 및 고성능 서버 |
 
 ---
+### 연결 방법
+1. 윈도우 내PC에서 네트워크 위치 추가
+2.  \\(나의 raspbarry pi ip)\NAS_Storage 입력
+3. 나의 raspbarry pi id와 비밀번호 입력
 
+---
 ### 개발환경
 C 컴파일러: gcc (WSL/리눅스 환경 기준)
 
