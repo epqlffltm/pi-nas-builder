@@ -1,3 +1,4 @@
+# .gitignore
 # 실행 파일 (컴파일 결과물)
 # Makefile에서 설정한 TARGET 이름들을 추가합니다.
 setup_app
