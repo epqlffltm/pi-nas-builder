@@ -70,26 +70,46 @@ int main(void)
     // 4. PCIe 설정
     printf("PCIe 설정을 확인합니다...\n");
     const char *CONFIG_FILE = "/boot/firmware/config.txt";
-    
-    FILE *file = fopen(CONFIG_FILE, "a");
-    if(file == NULL)
-    {
-        fprintf(stderr, "오류: 파일 %s을(를) 열 수 없습니다.\n", CONFIG_FILE);
-        exit(EXIT_FAILURE);
-    }
 
-    if(!grep_config(CONFIG_FILE, "dtparam=pciex1"))
-    {
-        printf("PCIe 설정 추가 중...\n");
-        fprintf(file, "\ndtparam=pciex1\n");
-    }
+    /* 검사를 먼저 끝내고, 실제로 쓸 것이 있을 때만 파일을 연다.
+       같은 파일을 쓰기로 열어 둔 채 grep_config 이 읽기로 다시 여는 상태를 피한다.
 
-    if(!grep_config(CONFIG_FILE, "dtparam=pciex1_gen=3"))
+       검색어 끝에 개행을 붙인 이유는 dtparam=pciex1 이 dtparam=pciex1_gen=3 의
+       부분 문자열이기 때문이다. 개행까지 맞춰야 둘을 구분할 수 있다.
+       (파일 마지막 줄에 개행이 없으면 못 잡지만, 이 도구가 쓰는 줄에는 항상 붙는다.) */
+    int need_pcie = !grep_config(CONFIG_FILE, "dtparam=pciex1\n");
+    int need_gen3 = !grep_config(CONFIG_FILE, "dtparam=pciex1_gen=3\n");
+
+    if(need_pcie || need_gen3)
     {
-        printf("PCIe Gen3 설정 추가 중...\n");
-        fprintf(file, "dtparam=pciex1_gen=3\n");
+        FILE *file = fopen(CONFIG_FILE, "a");
+        if(file == NULL)
+        {
+            fprintf(stderr, "오류: 파일 %s을(를) 열 수 없습니다.\n", CONFIG_FILE);
+            exit(EXIT_FAILURE);
+        }
+
+        if(need_pcie)
+        {
+            printf("PCIe 설정 추가 중...\n");
+            fprintf(file, "\ndtparam=pciex1\n");
+        }
+
+        if(need_gen3)
+        {
+            printf("PCIe Gen3 설정 추가 중...\n");
+            fprintf(file, "dtparam=pciex1_gen=3\n");
+        }
+
+        // 쓰기는 버퍼링되므로 실제 실패가 fclose 에서야 드러난다.
+        // 부팅 설정 파일이라 조용히 넘어가면 다음 부팅에서 원인을 찾기 어렵다.
+        if(fclose(file) != 0)
+            check_exit(1, "config.txt 저장 실패");
     }
-    fclose(file);
+    else
+    {
+        printf("PCIe 설정이 이미 적용되어 있습니다.\n");
+    }
 
     // 5. mdadm 및 도구 설치
     printf("RAID 관리 도구(mdadm)를 설치합니다...\n");
