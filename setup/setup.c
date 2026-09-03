@@ -1,12 +1,24 @@
+// setup/setup.c
+
+/*
+ * NAS 구축 1단계 — 초기 환경 설정.
+ *
+ * 패키지·펌웨어 갱신, PCIe Gen3 활성화, mdadm·Samba 설치, 방화벽, 한글화까지를
+ * 담당하고 마지막에 재부팅한다. RAID 구성(raid*)과 분리한 이유는 PCIe Gen3
+ * 활성화가 재부팅을 요구하기 때문이다.
+ *
+ * 최초 1회만 실행하면 되지만 재실행되어도 안전해야 하므로, config.txt 에 설정을
+ * 추가하기 전에 grep_config 으로 같은 줄이 이미 있는지 확인한다.
+ *
+ * 주석 처리된 블록은 지우지 않고 남긴다. 무엇을 시도했다가 왜 뺐는지가
+ * 다음에 같은 판단을 반복하지 않게 해 준다.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "../lib/utils.h"
-
-// 함수 선언
-int grep_config(const char *file_name, const char *search);
-long get_total_memory_size_kb(void);
+#include "../lib/nas_lib.h"
 
 int main(void)
 {
@@ -20,6 +32,8 @@ int main(void)
 
     // 2. 메모리 크기 확인
     /* zfs 사용하지 않아서 필요 없어짐.
+       Raspberry Pi 5 의 메모리로는 ZFS 권장 사양에 미치지 못해 ext4 로 갔고,
+       그 결과 이 검사도 필요가 없어졌다. get_total_memory_size_kb 구현도 함께 제거함.
     printf("시스템의 총 메모리 크기를 확인합니다...\n");
     long mem_kb = get_total_memory_size_kb();
     
